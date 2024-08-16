@@ -1,32 +1,55 @@
-import keras
 import tensorflow as tf
 import numpy as np
-import cv2
+from PIL import Image
 import os
+#hello
 
+os.environ['TF_ENABLE_ONEDNN_OPTS'] = '0'
 
-def predict_image_class(image_path):
+def preprocess_image(img):
+    """
+    Preprocess the input image for the model.
+    """
+    # Resize the image
+    img = img.resize((256, 256))
+    
+    # Convert to RGB if it's not
+    if img.mode != 'RGB':
+        img = img.convert('RGB')
+    
+    # Convert to numpy array and normalize
+    img_array = np.array(img).astype(np.float32) / 255.0
+    
+    return img_array
+
+def predict_image_class(img):
     """
     Predict the class probabilities of the input image using the model.
 
-    :param image_path: Path to the image file
-    :return: Predicted class probabilities
+    :param img: Input image as a PIL Image object
+    :return: Predicted class probabilities as a formatted string
     """
-    #os.chdir('skindoctor')
-    print(os.listdir())
-    print(os.path.exists('models/skindoctor.keras'))
+    model = tf.keras.models.load_model("models/skindoctor.keras")
+    
+    # Preprocess the image
+    processed_img = preprocess_image(img)
+    
+    # Add batch dimension
+    input_img = np.expand_dims(processed_img, 0)
+    
+    # Make prediction
+    yhat = model.predict(input_img)
 
-    model = tf.keras.models.load_model('models/skindoctor.keras')
+    acne = yhat[0][0] * 100
+    healthy = yhat[0][1] * 100
+    melanoma = yhat[0][2] * 100
 
-    img = cv2.imread(image_path)
-    resize = tf.image.resize(img, (256,256))
+    # Format the string
+    result_string = f"acne: {acne:.2f}%\nhealthy: {healthy:.2f}%\nmelanoma: {melanoma:.2f}%"
 
-    yhat = model.predict(np.expand_dims(resize/255, 0))
+    return result_string
 
-    return yhat
-
-
-if __name__ == "__main__":
-    print(keras.version())
-    test = predict_image_class('acne_test.jpeg')
-    print(test)
+# Example usage:
+# from PIL import Image
+# img = Image.open('acne_test.jpeg')
+# print(predict_image_class(img))
