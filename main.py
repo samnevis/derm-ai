@@ -14,16 +14,10 @@ def chat():
         )
         return completion.choices[0].message.content
     
-    def get_ai_response(prompt):
-        completion = client.chat.completions.create(
-            model="gpt-3.5-turbo",  # Changed to a standard model name
-            messages=[
-                {"role": "system", "content": "You are a doctor. Summarize the reccomendations given by the user into a neat perscriptive summary."}
-            ]
-        )
-        return completion.choices[0].message.content
+
 
     def handle_picture(file_path):
+        clean_file_path = file_path.replace('"', '')
         if os.path.isfile(file_path):
             try:
                 img = Image.open(file_path)
