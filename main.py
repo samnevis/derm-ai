@@ -1,7 +1,7 @@
 from openai import OpenAI
 import os
 from PIL import Image
-from aiskinsrc import predict_image_class
+from runModel import predict_image_class
 os.environ['TF_ENABLE_ONEDNN_OPTS'] = '0'
 
 def chat():
