@@ -18,9 +18,9 @@ def chat():
 
     def handle_picture(file_path):
         clean_file_path = file_path.replace('"', '')
-        if os.path.isfile(file_path):
+        if os.path.isfile(clean_file_path):
             try:
-                img = Image.open(file_path)
+                img = Image.open(clean_file_path)
                 img.show()
                 print(f"Image successfully loaded. Size: {img.size}")
 
@@ -93,7 +93,7 @@ def chat():
     print("Here is your diagnosis:")
     print(diagnosis_from_symptoms)
     print()
-    print("here are your reccomendations:")
+    print("here are your recommendations:")
     print(get_ai_response_from_msglist(summarizer_message_list))
 
 chat()
