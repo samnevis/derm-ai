@@ -41,6 +41,8 @@ def chat():
     knowledge_base = ""
     symptom_list = ""
     reccomendation_list = ""
+    diagnosis_from_symptoms = ""
+    
     reccomendation_message_list = [
         {"role": "system", "content": "You give reccomendations for the given skin condition. All responses should be maximum 4 sentences/bullet points."}
     ]
@@ -55,15 +57,21 @@ def chat():
         if user_response.lower() == 'n':
             user_response = ask("describe your symptoms")
             symptom_list += "Symptoms: " + user_response
+            diagnose_message_list = [
+                {"role": "system", "content": "You are a doctor. Give potential diagnosies on what the skin condition could be based on the given symptoms. Do not give reccomendations for what to do about it."},
+                {"role": "user", "content": symptom_list}
+            ]
+            diagnosis_from_symptoms = get_ai_response_from_msglist(diagnose_message_list)
+            print(diagnosis_from_symptoms)
 
-            file_path = ask("Please enter the path to the image file you want to upload: ")
+            file_path = ask("Please upload the file path of an image of your skin condition")
             image_result = handle_picture(file_path)
             if image_result:
                 knowledge_base += image_result
 
-    user_response = ask("Would you like to get recommendations for eczema? (Y/N)")
-    if user_response.lower() == 'y':
-        reccomendation_message_list.append({"role": "user", "content": "I have eczema"})
+    user_response = ask("Would you like to get recommendations for a skin disease? Type 'N' or type the skin disease you would like to ask about.")
+    if user_response.lower() != 'n':
+        reccomendation_message_list.append({"role": "user", "content": "I have " + user_response})
         while(True):
             ai_response = get_ai_response_from_msglist(reccomendation_message_list)
             reccomendation_message_list.append({"role": "assistant", "content": ai_response})
@@ -82,6 +90,9 @@ def chat():
             
     summarizer_message_list.append({"role": "user", "content": reccomendation_list})
     print("Thanks for using derm AI")
+    print("Here is your diagnosis:")
+    print(diagnosis_from_symptoms)
+    print()
     print("here are your reccomendations:")
     print(get_ai_response_from_msglist(summarizer_message_list))
 
