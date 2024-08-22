@@ -1,8 +1,9 @@
+#runModel.py
+
 import tensorflow as tf
 import numpy as np
 from PIL import Image
 import os
-#hello
 
 os.environ['TF_ENABLE_ONEDNN_OPTS'] = '0'
 
@@ -12,7 +13,7 @@ def preprocess_image(img):
     """
     # Resize the image
     img = img.resize((256, 256))
-    
+    9
     # Convert to RGB if it's not
     if img.mode != 'RGB':
         img = img.convert('RGB')
@@ -49,7 +50,3 @@ def predict_image_class(img):
 
     return result_string
 
-# Example usage:
-# from PIL import Image
-# img = Image.open('acne_test.jpeg')
-# print(predict_image_class(img))
