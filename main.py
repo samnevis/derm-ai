@@ -134,7 +134,7 @@ def chat():
     summarizer_message_list.append({"role": "user", "content": reccomendation_list})
     
     # Print the final output to the user
-    print("\n\n\nThanks for using derm AI")
+    print("\n\n\nThanks for using derm AI")9
     print("Here is your diagnosis:")
     print(diagnosis_from_symptoms)
     print()

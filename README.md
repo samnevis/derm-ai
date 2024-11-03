@@ -16,6 +16,36 @@ The application is written in Python and includes the following functionalities:
 - **AI-Generated Recommendations**: Based on the diagnosis or the user's request, the AI can provide recommendations on skin care or potential treatments.
 - **Chat-Style Interaction**: The app mimics a conversation with a doctor, asking relevant questions and guiding the user through the diagnostic and recommendation process.
 
+## Dataset Information
+
+To enhance the diagnostic accuracy of Derm AI, high-quality image datasets were used for training and fine-tuning the image classification model. These datasets provide a variety of labeled images of skin conditions, allowing the TensorFlow model to learn the distinguishing features of conditions like acne, healthy skin, and melanoma. Below are details on the datasets used:
+
+### 1. [Skin Diseases Image Dataset by Ismail Promus](https://www.kaggle.com/datasets/ismailpromus/skin-diseases-image-dataset/data)
+
+This dataset contains a diverse collection of images covering several skin diseases, providing a foundation for recognizing various dermatological conditions. It includes categories such as acne, eczema, psoriasis, and more, allowing for the potential to expand Derm AI's diagnostic range in the future. Key features of the dataset include:
+
+- **Number of Images**: Approximately 5,000 images.
+- **Image Resolution**: Moderate resolution, suitable for model training and processing.
+- **Labeling**: Each image is labeled with the associated skin condition, enabling supervised training.
+- **Dataset Purpose**: Primarily used for detecting and distinguishing various types of skin diseases, with an emphasis on common conditions like acne and eczema.
+
+This dataset serves as the primary source for recognizing acne, eczema, and other non-malignant skin conditions in the current version of Derm AI.
+
+### 2. [Melanoma Skin Cancer Dataset by Hasnain Javed](https://www.kaggle.com/datasets/hasnainjaved/melanoma-skin-cancer-dataset-of-10000-images)
+
+This dataset is tailored for melanoma detection, containing thousands of images with a focus on malignant and benign skin lesions. It aids in enhancing the model's ability to identify melanoma, a critical function of the application. The dataset specifics include:
+
+- **Number of Images**: Around 10,000 images.
+- **Image Resolution**: High-quality images that allow for detailed analysis of skin lesions.
+- **Labeling**: Each image is labeled as either melanoma or benign, providing a clear distinction for binary classification tasks.
+- **Dataset Purpose**: Specifically used for detecting melanoma, with labeled images that differentiate malignant melanoma from benign conditions.
+
+This dataset enables Derm AI to accurately classify images with potential melanoma, helping users identify potentially dangerous skin conditions early.
+
+### Dataset Usage in Model Training
+
+The datasets were preprocessed to ensure uniformity in image size, color format (RGB), and normalization, preparing them for input into the TensorFlow model. During training, data augmentation techniques such as rotation, zoom, and flip were applied to increase the model's robustness and generalizability. By combining images from both datasets, Derm AI achieves a balanced performance across common skin conditions and specific malignant cases like melanoma.
+
 ## Requirements
 
 - **Python 3.7+**
