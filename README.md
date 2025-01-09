@@ -2,7 +2,7 @@
 
 ## Overview
 
-Derm AI is an interactive application designed to help users diagnose and get recommendations on skin conditions. It leverages a combination of AI-driven text interactions through OpenAI's GPT-3.5-turbo model and a TensorFlow-based image classification model. The goal is to assist users in diagnosing common skin conditions like acne, melanoma, and healthy skin, while also providing symptom-based diagnosis and recommendations.
+Derm AI is an interactive application designed to help users diagnose and get recommendations on skin conditions. It leverages a combination of AI-driven text interactions through OpenAI's GPT-3.5-turbo model and a TensorFlow-based image classification model. The goal is to assist users in diagnosing common skin conditions like acne, melanoma, and healthy skin, while also providing symptom-based diagnosis and recommendations. This application was co-developed by Ellis Huang, Jaden Fielding, and Sam Khoshnevis.
 
 The application is written in Python and includes the following functionalities:
 1. Conversational diagnosis and recommendations for skin issues via AI.
