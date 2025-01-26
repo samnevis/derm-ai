@@ -21,7 +21,9 @@ You: n
 Describe your symptoms
 
 You: red and dry skin on elbows
-Possible diagnoses could include eczema, psoriasis, allergic contact dermatitis, or dry skin (xerosis). A medical professional would need to perform a physical examination and possibly further tests to confirm the diagnosis.
+
+Possible diagnoses could include eczema, psoriasis, allergic contact dermatitis, or dry skin (xerosis). 
+A medical professional would need to perform a physical examination and possibly further tests to confirm the diagnosis.
 ===============================================
 Please upload the file path of an image of your skin condition
 
@@ -50,7 +52,8 @@ Thanks for using derm AI
 
 Here is your diagnosis:
 
-Possible diagnoses could include eczema, psoriasis, allergic contact dermatitis, or dry skin (xerosis). A medical professional would need to perform a physical examination and possibly further tests to confirm the diagnosis.
+Possible diagnoses could include eczema, psoriasis, allergic contact dermatitis, or dry skin (xerosis). 
+A medical professional would need to perform a physical examination and possibly further tests to confirm the diagnosis.
 
 Here are your recommendations:
 
