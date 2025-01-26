@@ -31,15 +31,7 @@ Image successfully loaded. Size: (1248, 832)
 1/1 [==============================] - 6s 6s/step
 
 Your image results are 
-Actinic keratosis: 2.30%
 Atopic Dermatitis: 50.94%
-Benign keratosis: 2.20%
-Dermatofibroma: 1.88%
-Melanocytic nevus: 0.19%
-Melanoma: 1.89%
-Squamous cell carcinoma: 2.99%
-Tinea Ringworm: 37.54%
-Vascular lesion: 0.07%
 ===============================================
 Would you like to get recommendations for a skin disease? Type 'N' or type the skin disease you would like to ask about.
 
