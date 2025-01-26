@@ -1,154 +1,176 @@
-# Derm AI Application
+# Skin Disease Classification and Diagnosis Project
 
 ## Overview
+This project is an AI-powered application designed to assist in diagnosing and recommending treatments for various skin conditions. The project leverages a convolutional neural network (CNN) for image-based skin disease classification and integrates an interactive chatbot for symptom-based diagnosis and treatment recommendations.
 
-Derm AI is an interactive application designed to help users diagnose and get recommendations on skin conditions. It leverages a combination of AI-driven text interactions through OpenAI's GPT-3.5-turbo model and a TensorFlow-based image classification model. The goal is to assist users in diagnosing common skin conditions like acne, melanoma, and healthy skin, while also providing symptom-based diagnosis and recommendations. This application was co-developed by Ellis Huang, Jaden Fielding, and Sam Khoshnevis.
+---
 
-The application is written in Python and includes the following functionalities:
-1. Conversational diagnosis and recommendations for skin issues via AI.
-2. Image classification of skin conditions using a pre-trained model.
-3. A user-friendly command-line interface for interaction.
+## Sample Usage
 
-## Features
-
-- **Symptom-Based Diagnosis**: Users can describe their symptoms, and the AI will generate potential diagnoses based on their description.
-- **Image-Based Classification**: Users can upload an image of their skin condition, and the application will use a TensorFlow model to classify the condition as either acne, healthy skin, or melanoma.
-- **AI-Generated Recommendations**: Based on the diagnosis or the user's request, the AI can provide recommendations on skin care or potential treatments.
-- **Chat-Style Interaction**: The app mimics a conversation with a doctor, asking relevant questions and guiding the user through the diagnostic and recommendation process.
-
-## Dataset Information
-
-To enhance the diagnostic accuracy of Derm AI, high-quality image datasets were used for training and fine-tuning the image classification model. These datasets provide a variety of labeled images of skin conditions, allowing the TensorFlow model to learn the distinguishing features of conditions like acne, healthy skin, and melanoma. Below are details on the datasets used:
-
-### 1. [Skin Diseases Image Dataset by Ismail Promus](https://www.kaggle.com/datasets/ismailpromus/skin-diseases-image-dataset/data)
-
-This dataset contains a diverse collection of images covering several skin diseases, providing a foundation for recognizing various dermatological conditions. It includes categories such as acne, eczema, psoriasis, and more, allowing for the potential to expand Derm AI's diagnostic range in the future. Key features of the dataset include:
-
-- **Number of Images**: Approximately 5,000 images.
-- **Image Resolution**: Moderate resolution, suitable for model training and processing.
-- **Labeling**: Each image is labeled with the associated skin condition, enabling supervised training.
-- **Dataset Purpose**: Primarily used for detecting and distinguishing various types of skin diseases, with an emphasis on common conditions like acne and eczema.
-
-This dataset serves as the primary source for recognizing acne, eczema, and other non-malignant skin conditions in the current version of Derm AI.
-
-### 2. [Melanoma Skin Cancer Dataset by Hasnain Javed](https://www.kaggle.com/datasets/hasnainjaved/melanoma-skin-cancer-dataset-of-10000-images)
-
-This dataset is tailored for melanoma detection, containing thousands of images with a focus on malignant and benign skin lesions. It aids in enhancing the model's ability to identify melanoma, a critical function of the application. The dataset specifics include:
-
-- **Number of Images**: Around 10,000 images.
-- **Image Resolution**: High-quality images that allow for detailed analysis of skin lesions.
-- **Labeling**: Each image is labeled as either melanoma or benign, providing a clear distinction for binary classification tasks.
-- **Dataset Purpose**: Specifically used for detecting melanoma, with labeled images that differentiate malignant melanoma from benign conditions.
-
-This dataset enables Derm AI to accurately classify images with potential melanoma, helping users identify potentially dangerous skin conditions early.
-
-### Dataset Usage in Model Training
-
-The datasets were preprocessed to ensure uniformity in image size, color format (RGB), and normalization, preparing them for input into the TensorFlow model. During training, data augmentation techniques such as rotation, zoom, and flip were applied to increase the model's robustness and generalizability. By combining images from both datasets, Derm AI achieves a balanced performance across common skin conditions and specific malignant cases like melanoma.
-
-## Requirements
-
-- **Python 3.7+**
-- **TensorFlow 2.6.0+**
-- **OpenAI Python client**
-- **Pillow (PIL) for image processing**
-
-To install the required packages, run the following command:
-
-```bash
-pip install tensorflow openai pillow
-```
-
-## How It Works
-
-### Image Classification
-The TensorFlow model (`skindoctor.keras`) is loaded, and an image of the user's skin condition is analyzed. The image is preprocessed (resized, converted to RGB, and normalized) before being input to the model. The model then predicts the probabilities of three possible outcomes: acne, healthy skin, or melanoma. The results are returned to the user in a human-readable format.
-
-### Conversational Interface
-The user is prompted to interact with the AI via a chat interface. The conversation follows these general steps:
-1. **Symptom Inquiry**: The app asks the user if they want to discuss a skin issue and whether they have been diagnosed.
-2. **Symptom Diagnosis**: If the user hasn’t been diagnosed, they are prompted to describe their symptoms, which are then used to generate potential diagnoses using the GPT-3.5-turbo model.
-3. **Image Input**: The user can upload an image of their skin condition, which is classified using the TensorFlow model.
-4. **Recommendations**: The AI can offer personalized recommendations based on the user's skin condition or a specific disease they inquire about.
-
-### Example Workflow
-
-- User starts the conversation: "Y" to discuss skin issues.
-- User inputs their symptoms: "I have red itchy spots on my face."
-- AI generates potential diagnoses.
-- User uploads an image for analysis: `C:/path/to/skin_image.jpg`.
-- AI classifies the image and returns the prediction.
-- User asks for recommendations for a particular disease: "acne".
-- AI provides treatment or care recommendations.
-- The conversation can continue until the user decides to quit.
-
-## Directory Structure
 
 ```plaintext
-├── models/
-│   └── skindoctor.keras   # Pre-trained TensorFlow model for skin classification
-├── runModel.py            # Script for image preprocessing and classification
-└── main.py                # Main script for user interaction and AI chat
+===============================================
+This app will try to help you with skin problems. Let's get started. Do you want to talk about any skin issues you're facing? (Y/N)
+
+You: y
+===============================================
+Have you been diagnosed for this skin issue?
+
+You: n
+===============================================
+Describe your symptoms
+
+You: red and dry skin on elbows
+Possible diagnoses could include eczema, psoriasis, allergic contact dermatitis, or dry skin (xerosis). A medical professional would need to perform a physical examination and possibly further tests to confirm the diagnosis.
+===============================================
+Please upload the file path of an image of your skin condition
+
+You: "C:\Users\samne\Downloads\psoriasis-pic.jpg"
+
+Image successfully loaded. Size: (1248, 832)
+1/1 [==============================] - 6s 6s/step
+
+Your image results are 
+Actinic keratosis: 2.30%
+Atopic Dermatitis: 50.94%
+Benign keratosis: 2.20%
+Dermatofibroma: 1.88%
+Melanocytic nevus: 0.19%
+Melanoma: 1.89%
+Squamous cell carcinoma: 2.99%
+Tinea Ringworm: 37.54%
+Vascular lesion: 0.07%
+===============================================
+Would you like to get recommendations for a skin disease? Type 'N' or type the skin disease you would like to ask about.
+
+You: psoriasis
+
+1. Use gentle, fragrance-free skincare products to avoid irritating your skin.
+2. Moisturize regularly to help relieve dryness and reduce itching.
+3. Consider topical treatments or medications prescribed by a dermatologist.
+4. Manage stress, as it can exacerbate psoriasis symptoms.
+===============================================
+Continue chatting or press Q to move on
+
+You: q
+
+Thanks for using derm AI
+
+Here is your diagnosis:
+
+Possible diagnoses could include eczema, psoriasis, allergic contact dermatitis, or dry skin (xerosis). A medical professional would need to perform a physical examination and possibly further tests to confirm the diagnosis.
+
+Here are your recommendations:
+
+Prescriptive Summary:
+1. Use gentle, fragrance-free skincare products.
+2. Moisturize regularly to reduce dryness and itching.
+3. Consult a dermatologist for topical treatments or medications.
+4. Manage stress to alleviate psoriasis symptoms.
 ```
 
-## Files Explanation
+---
 
-### `runModel.py`
+## Key Features
+1. **Image Classification**: Accurately identifies skin diseases from uploaded images.
+2. **Symptom-Based Diagnosis**: Generates potential diagnoses based on user-described symptoms.
+3. **AI-Powered Recommendations**: Provides treatment suggestions for diagnosed conditions.
+4. **Interactive Chatbot**: Engages users through a conversational interface to enhance user experience.
 
-- **`preprocess_image(img)`**: Preprocesses the input image (resizing, RGB conversion, normalization).
-- **`predict_image_class(img)`**: Uses the TensorFlow model to classify the image into one of the three categories: acne, healthy skin, or melanoma.
+---
 
-### `main.py`
+## Dataset Information
+**Source**: [Skin Disease Classification Image Dataset](https://www.kaggle.com/datasets/riyaelizashaju/skin-disease-classification-image-dataset)
 
-- **`chat()`**: Main function that handles the interaction with the user. It starts the conversation, processes symptoms, loads images for analysis, generates recommendations, and finally, provides a summary.
-- **`handle_picture(file_path)`**: Handles the user's uploaded image, processes it, and provides classification results.
-- **`get_ai_response_from_msglist()`**: Sends messages to OpenAI's GPT-3.5-turbo model to generate responses based on user input.
+### Dataset Details
+- Categorized images of skin conditions, including:
+  - Actinic keratosis
+  - Atopic Dermatitis
+  - Benign keratosis
+  - Dermatofibroma
+  - Melanocytic nevus
+  - Melanoma
+  - Squamous cell carcinoma
+  - Tinea Ringworm Candidiasis
+  - Vascular lesion
+- Split into training and validation sets for model training and evaluation.
 
-## Installation and Setup
+---
 
-1. **Clone the Repository**
+## Workflow
 
-   Clone the repository to your local machine:
+### **1. Preprocessing**
+- Images are resized to **128x128** pixels.
+- Data augmentation applied (rotation, zooming, shearing, and flipping).
+- Pixel values are normalized to the range **[0, 1]**.
 
+### **2. Model Architecture**
+- **Convolutional Layers**: Extract spatial features.
+- **MaxPooling Layers**: Reduce feature map dimensions.
+- **Dense Layers**: Capture non-linear relationships.
+- **Dropout**: Prevent overfitting.
+
+### **3. Hyperparameter Tuning**
+- Tuned with **Keras Tuner's Hyperband** to optimize:
+  - Number of filters in convolutional layers
+  - Units in dense layers
+  - Dropout rates
+  - Learning rates
+
+### **4. Training**
+- Model is trained for **25 epochs** with **early stopping** to prevent overfitting.
+- Validation data used to evaluate performance.
+
+### **5. Deployment and Chatbot Integration**
+- Deployed as an interactive chatbot:
+  - Accepts image uploads for classification.
+  - Accepts symptom descriptions for diagnosis.
+  - Provides recommendations for the diagnosed conditions.
+
+---
+
+## How to Run the Project
+
+### **1. Prerequisites**
+- Python 3.10 or higher
+- OpenAI API Key: **Set the key as an environment variable**:
+  
+```bash
+export OPENAI_API_KEY=your_openai_key
+```
+
+### **2. Setup**
+1. **Install Required Libraries**:
    ```bash
-   git clone https://github.com/samnevis/derm-ai
+   pip install tensorflow keras-tuner Pillow openai
+   ```
+2. **Download the Dataset**:
+   - Visit [Kaggle](https://www.kaggle.com/datasets/riyaelizashaju/skin-disease-classification-image-dataset).
+   - Download the dataset and place it in the project folder under `./data/train` and `./data/val`.
+
+3. **Run the Training Script**:
+   ```bash
+   cd CNN
+   python tuneCNN.py
    ```
 
-2. **Install Dependencies**
-
-   Install the required dependencies
-
-3. **Model Setup**
-
-   Ensure that the `skindoctor.keras` TensorFlow model is placed in the `models/` directory.
-
-4. **Running the Application**
-
-   To run the application, execute the following command:
-
+4. **Run the Chatbot Application**:
    ```bash
+   cd app
    python main.py
    ```
 
-   Follow the prompts in the command line to interact with the AI.
+---
 
-## Configuration
 
-Ensure that you have the OpenAI API key available in your environment. This can be done by setting it as an environment variable:
 
-```bash
-export OPENAI_API_KEY='your_openai_api_key_here'
-```
+## Credits
+- **Dataset**: [Riya Eliza Shaju on Kaggle](https://www.kaggle.com/datasets/riyaelizashaju/skin-disease-classification-image-dataset)
+- **Libraries Used**: TensorFlow, Keras, Keras Tuner, PIL, OpenAI
 
-Alternatively, you can modify the `main.py` to load the API key directly within the script.
+---
 
-## Future Improvements
+## Notes
+- Always consult a medical professional for an accurate diagnosis and treatment plan. This application is designed for educational purposes and not as a substitute for professional medical advice.
 
-- **Expand Diagnostic Categories**: Add more conditions beyond acne and melanoma to the classification model.
-- **GUI Interface**: Implement a graphical user interface (GUI) for easier interaction.
-- **Model Optimization**: Enhance the accuracy of the classification model with more training data and better architecture.
-- **Custom Recommendations**: Offer more personalized recommendations based on the user's skin type and medical history.
-
-## Conclusion
-
-Derm AI provides an initial step towards digital dermatology solutions, blending AI chat models with image classification techniques. It assists users in identifying common skin conditions and provides recommendations based on AI-generated insights. Although it's not a replacement for a medical professional, it offers a convenient tool for preliminary analysis and guidance.
+---
