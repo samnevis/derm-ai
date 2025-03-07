@@ -4,6 +4,8 @@ import os
 from PIL import Image
 import sys
 import os
+import streamlit as st
+from io import BytesIO
 
 # Add ../CNN to the Python path
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "../CNN")))

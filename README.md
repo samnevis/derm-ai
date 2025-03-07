@@ -1,171 +1,109 @@
-# Skin Disease Classification and Diagnosis Project
+# DermAI - Skin Condition Assistant
 
-## Overview
-This project is an AI-powered application designed to assist in diagnosing and recommending treatments for various skin conditions. The project leverages a convolutional neural network (CNN) for image-based skin disease classification and integrates an interactive chatbot for symptom-based diagnosis and treatment recommendations.
+DermAI is an AI-powered application that helps identify potential skin conditions through symptom analysis and image recognition. It provides personalized recommendations and educational information about various dermatological conditions.
 
----
+## Features
 
-## Sample Usage
+- **Symptom Analysis**: Describe your symptoms to get potential diagnoses
+- **Image Recognition**: Upload images of skin conditions for AI analysis
+- **Condition Information**: Learn about identified skin conditions
+- **Personalized Recommendations**: Get tailored advice for managing skin conditions
+- **Interactive Chat**: Ask follow-up questions about your condition
+- **Comprehensive Summary**: View and download a complete report of your analysis
 
+## Preview
 
-```plaintext
-===============================================
-This app will try to help you with skin problems. Let's get started. Do you want to talk about any skin issues you're facing? (Y/N)
+### Diagnosis
+![Diagnosis Screen 1](images/diagnosis1.png)
+![Diagnosis Screen 2](images/diagnosis2.png)
+![Diagnosis Screen 3](images/diagnosis3.png)
 
-You: y
-===============================================
-Have you been diagnosed for this skin issue?
+### Recommendations
+![Recommendations Screen](images/rec1.png)
 
-You: n
-===============================================
-Describe your symptoms
+### Summary
+![Summary Screen 1](images/summary1.png)
+![Summary Screen 2](images/summary2.png)
 
-You: red and dry skin on elbows
+## Installation
 
-Possible diagnoses could include eczema, psoriasis, allergic contact dermatitis, or dry skin (xerosis). 
-A medical professional would need to perform a physical examination and possibly further tests to confirm the diagnosis.
-===============================================
-Please upload the file path of an image of your skin condition
+### Prerequisites
 
-You: "C:\Users\samne\Downloads\psoriasis-pic.jpg"
+- Python 3.8 or higher
+- pip (Python package installer)
 
-Image successfully loaded. Size: (1248, 832)
-1/1 [==============================] - 6s 6s/step
+### Setup
 
-Your image results are 
-Atopic Dermatitis: 50.94%
-===============================================
-Would you like to get recommendations for a skin disease? Type 'N' or type the skin disease you would like to ask about.
+1. Clone the repository:
+   ```
+   git clone https://github.com/yourusername/derm-ai.git
+   cd derm-ai
+   ```
 
-You: psoriasis
+2. Install the required packages:
+   ```
+   pip install -r requirements.txt
+   ```
 
-1. Use gentle, fragrance-free skincare products to avoid irritating your skin.
-2. Moisturize regularly to help relieve dryness and reduce itching.
-3. Consider topical treatments or medications prescribed by a dermatologist.
-4. Manage stress, as it can exacerbate psoriasis symptoms.
-===============================================
-Continue chatting or press Q to move on
+   This will install all necessary dependencies including:
+   - Streamlit
+   - OpenAI
+   - TensorFlow
+   - Pillow
+   - protobuf==3.20.3 (specific version required for compatibility)
 
-You: q
+3. Set up your OpenAI API key:
+   ```
+   export OPENAI_API_KEY='your-api-key-here'
+   ```
+   
+   On Windows:
+   ```
+   set OPENAI_API_KEY=your-api-key-here
+   ```
 
-Thanks for using derm AI
+## Usage
 
-Here is your diagnosis:
+1. Start the Streamlit application:
+   ```
+   streamlit run app/streamlit_app.py
+   ```
 
-Possible diagnoses could include eczema, psoriasis, allergic contact dermatitis, or dry skin (xerosis). 
-A medical professional would need to perform a physical examination and possibly further tests to confirm the diagnosis.
+2. Open your web browser and navigate to `http://localhost:8501` (or the URL provided in the terminal)
 
-Here are your recommendations:
+3. Use the application:
+   - Navigate between tabs for different functionalities
+   - Describe your symptoms in the Diagnosis tab
+   - Upload images of skin conditions for analysis
+   - Get recommendations and ask follow-up questions
+   - View and download your complete analysis from the Summary tab
 
-Prescriptive Summary:
-1. Use gentle, fragrance-free skincare products.
-2. Moisturize regularly to reduce dryness and itching.
-3. Consult a dermatologist for topical treatments or medications.
-4. Manage stress to alleviate psoriasis symptoms.
+## Project Structure
+
+```
+derm-ai/
+├── app/
+│   ├── streamlit_app.py    # Main Streamlit application
+│   └── main.py             # Original CLI version (deprecated)
+├── CNN/
+│   ├── runModel.py         # Image classification model
+│   └── ...                 # Other model files
+├── requirements.txt        # Project dependencies
+└── README.md               # This file
 ```
 
----
+## Troubleshooting
 
-## Key Features
-1. **Image Classification**: Accurately identifies skin diseases from uploaded images.
-2. **Symptom-Based Diagnosis**: Generates potential diagnoses based on user-described symptoms.
-3. **AI-Powered Recommendations**: Provides treatment suggestions for diagnosed conditions.
-4. **Interactive Chatbot**: Engages users through a conversational interface to enhance user experience.
+- **Image Analysis Issues**: Ensure images are clear, well-lit, and focused on the skin condition
+- **TensorFlow Errors**: If you encounter protobuf-related errors, try `pip install protobuf==3.20.3`
+- **OpenAI API Errors**: Verify your API key is correctly set as an environment variable
 
----
+## Disclaimer
 
-## Dataset Information
-**Source**: [Skin Disease Classification Image Dataset](https://www.kaggle.com/datasets/riyaelizashaju/skin-disease-classification-image-dataset)
+DermAI is for informational purposes only and is not a substitute for professional medical advice, diagnosis, or treatment. Always seek the advice of your physician or other qualified health provider with any questions you may have regarding a medical condition.
 
-### Dataset Details
-- Categorized images of skin conditions, including:
-  - Actinic keratosis
-  - Atopic Dermatitis
-  - Benign keratosis
-  - Dermatofibroma
-  - Melanocytic nevus
-  - Melanoma
-  - Squamous cell carcinoma
-  - Tinea Ringworm Candidiasis
-  - Vascular lesion
-- Split into training and validation sets for model training and evaluation.
+## Acknowledgments
 
----
-
-## Workflow
-
-### **1. Preprocessing**
-- Images are resized to **128x128** pixels.
-- Data augmentation applied (rotation, zooming, shearing, and flipping).
-- Pixel values are normalized to the range **[0, 1]**.
-
-### **2. Model Architecture**
-- **Convolutional Layers**: Extract spatial features.
-- **MaxPooling Layers**: Reduce feature map dimensions.
-- **Dense Layers**: Capture non-linear relationships.
-- **Dropout**: Prevent overfitting.
-
-### **3. Hyperparameter Tuning**
-- Tuned with **Keras Tuner's Hyperband** to optimize:
-  - Number of filters in convolutional layers
-  - Units in dense layers
-  - Dropout rates
-  - Learning rates
-
-### **4. Training**
-- Model is trained for **25 epochs** with **early stopping** to prevent overfitting.
-- Validation data used to evaluate performance.
-
-### **5. Deployment and Chatbot Integration**
-- Deployed as an interactive chatbot:
-  - Accepts image uploads for classification.
-  - Accepts symptom descriptions for diagnosis.
-  - Provides recommendations for the diagnosed conditions.
-
----
-
-## How to Run the Project
-
-### **1. Prerequisites**
-- Python 3.10 or higher
-- OpenAI API Key: **Set the key as an environment variable**:
-  
-```bash
-export OPENAI_API_KEY=your_openai_key
-```
-
-### **2. Setup**
-1. **Install Required Libraries**:
-   ```bash
-   pip install tensorflow keras-tuner Pillow openai
-   ```
-2. **Download the Dataset**:
-   - Visit [Kaggle](https://www.kaggle.com/datasets/riyaelizashaju/skin-disease-classification-image-dataset).
-   - Download the dataset and place it in the project folder under `./data/train` and `./data/val`.
-
-3. **Run the Training Script**:
-   ```bash
-   cd CNN
-   python tuneCNN.py
-   ```
-
-4. **Run the Chatbot Application**:
-   ```bash
-   cd app
-   python main.py
-   ```
-
----
-
-
-
-## Credits
-- **Dataset**: [Riya Eliza Shaju on Kaggle](https://www.kaggle.com/datasets/riyaelizashaju/skin-disease-classification-image-dataset)
-- **Libraries Used**: TensorFlow, Keras, Keras Tuner, PIL, OpenAI
-
----
-
-## Notes
-- Always consult a medical professional for an accurate diagnosis and treatment plan. This application is designed for educational purposes and not as a substitute for professional medical advice.
-
----
+- OpenAI for providing the GPT models
+- TensorFlow for the image classification capabilities
+- Streamlit for the web application framework
